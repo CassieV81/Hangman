@@ -11,6 +11,7 @@ def choose_word
 end
 
 secret_word = choose_word
+puts secret_word
 guessed_letters = []
 remaining_chances = 6
 
@@ -25,11 +26,11 @@ def display_word(secret_word, guessed_letters)
 end
 
 while remaining_chances > 0
+  puts "Secret word: #{display_word(secret_word, guessed_letters)}"
 
   print "Enter your guess: "
   guess = gets.chomp
 
-  puts "Secret word: #{display_word(secret_word, guessed_letters)}"
   puts "Letters guessed: #{guessed_letters.join(', ')}"
   
   if secret_word.include?(guess)
@@ -39,4 +40,15 @@ while remaining_chances > 0
     remaining_chances -= 1
     puts "Incorrect! #{guess} is not in the secret word. You have #{remaining_chances} remaining chances"
   end
+
+  #End loop
+
+  if secret_word.chars.all? { |char| guessed_letters.include?(char) }
+    puts "You win! You guessed the secret word, #{secret_word}."
+    return
+  elsif remaining_chances == 0
+    puts "You lose! The secret word was #{secret_word}."
+    return
+  end
 end
+
