@@ -7,6 +7,22 @@ def choose_word
     secret_word = words.sample
   end
   file.close
-  puts secret_word
+  secret_word
 end
-choose_word
+
+secret_word = choose_word
+guessed_letters = []
+remaining_chances = 6
+
+while remaining_chances > 0
+  print "Enter your guess: "
+  guess = gets.chomp
+  
+  if secret_word.include?(guess)
+    guessed_letters.push(guess)
+    puts "Correct! #{guess} is in the secret word."
+  else
+    remaining_chances -= 1
+    puts "Incorrect! #{guess} is not in the secret word. You have #{remaining_chances} remaining chances"
+  end
+end
