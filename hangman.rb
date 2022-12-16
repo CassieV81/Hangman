@@ -69,7 +69,7 @@ while remaining_chances > 0
     puts "Correct! #{guess} is in the secret word."
   else
     remaining_chances -= 1
-    puts "Incorrect! #{guess} is not in the secret word. You have #{remaining_chances} remaining chances"
+    puts "Incorrect! Try again... You have #{remaining_chances} remaining chances"
   end
 
   #End loop
