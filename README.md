@@ -1,6 +1,6 @@
 # Hangman
 
-TA classic word-guessing game, where the player tries to guess a secret word by suggesting letters. The player has a limited number of chances to guess the word, and each incorrect guess reduces the number of remaining chances.
+A classic word-guessing game, where the player tries to guess a secret word by suggesting letters. The player has a limited number of chances to guess the word, and each incorrect guess reduces the number of remaining chances.
 
 ## How to play
 
@@ -24,4 +24,4 @@ To play the game, run the `hangman.rb` file in a Ruby interpreter. Follow the pr
 ## Credits
 
 - This project is part of the [Odin Project](https://www.theodinproject.com/), a comprehensive curriculum for learning web development.
-- The word list in `guess_words.txt` was sourced from [https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english-no-swears.txt].
+- The word list in `guess_words.txt` was sourced from [https://github.com/first20hours/google-10000-english](https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english-no-swears.txt).
