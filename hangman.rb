@@ -14,9 +14,23 @@ secret_word = choose_word
 guessed_letters = []
 remaining_chances = 6
 
+def display_word(secret_word, guessed_letters)
+  secret_word.chars.map do |char|
+    if guessed_letters.include?(char)
+      char
+    else
+      "_"
+    end
+  end
+end
+
 while remaining_chances > 0
+
   print "Enter your guess: "
   guess = gets.chomp
+
+  puts "Secret word: #{display_word(secret_word, guessed_letters)}"
+  puts "Letters guessed: #{guessed_letters.join(', ')}"
   
   if secret_word.include?(guess)
     guessed_letters.push(guess)
