@@ -21,7 +21,7 @@ def display_word(secret_word, guessed_letters)
     else
       "_"
     end
-  end
+  end.join(" ")
 end
 
 while remaining_chances > 0
