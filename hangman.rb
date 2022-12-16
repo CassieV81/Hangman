@@ -26,10 +26,19 @@ def choose_word
   secret_word
 end
 
-secret_word = choose_word
-puts secret_word
-guessed_letters = []
-remaining_chances = 6
+puts "Welcome to Hangman! Do you want to start a new game or load a saved game? (Type 'new' or 'load')"
+input = gets.chomp
+
+if input == 'load'
+  saved_game = load_game
+  secret_word = saved_game[:secret_word]
+  guessed_letters = saved_game[:guessed_letters]
+  remaining_chances = saved_game[:remaining_chances]
+else
+  secret_word = choose_word
+  guessed_letters = []
+  remaining_chances = 6
+end
 
 def display_word(secret_word, guessed_letters)
   secret_word.chars.map do |char|
