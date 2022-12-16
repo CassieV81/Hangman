@@ -1,3 +1,19 @@
+require 'yaml'
+
+def save_game(secret_word, guessed_letters, remaining_chances)
+  File.open("hangman_save.yml", "w") do |file|
+    file.puts({
+      secret_word: secret_word,
+      guessed_letters: guessed_letters,
+      remaining_chances: remaining_chances
+    }.to_yaml)
+  end
+end
+
+def load_game
+  YAML.load_file("hangman_save.yml")
+end
+
 def choose_word
   file = File.open("guess_words.txt", "r")
   contents = file.read
@@ -30,6 +46,12 @@ while remaining_chances > 0
 
   print "Enter your guess: "
   guess = gets.chomp
+
+  if guess == 'save'
+    save_game(secret_word, guessed_letters, remaining_chances)
+    puts "Game saved!"
+    break
+  end
 
   puts "Letters guessed: #{guessed_letters.join(', ')}"
   
