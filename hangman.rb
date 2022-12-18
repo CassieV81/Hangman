@@ -71,10 +71,10 @@ while game.remaining_chances > 0
     break
   end
 
+  game.guessed_letters.push(guess)
   puts "Letters guessed: #{game.guessed_letters.join(', ')}"
   
   if game.secret_word.include?(guess)
-    game.guessed_letters.push(guess)
     puts "Correct! #{guess} is in the secret word."
   else
     game.remaining_chances -= 1

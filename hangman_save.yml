@@ -1,4 +1,8 @@
 ---
-:secret_word: submission
-:guessed_letters: []
-:remaining_chances: 6
+:secret_word: dishes
+:guessed_letters:
+- f
+- a
+- o
+- i
+:remaining_chances: 3
