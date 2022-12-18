@@ -1,53 +1,61 @@
 require 'yaml'
 
-def save_game(secret_word, guessed_letters, remaining_chances)
-  File.open("hangman_save.yml", "w") do |file|
-    file.puts({
-      secret_word: secret_word,
-      guessed_letters: guessed_letters,
-      remaining_chances: remaining_chances
-    }.to_yaml)
-  end
-end
+class Hangman
+  attr_reader :secret_word, :guessed_letters, :remaining_chances
 
-def load_game
-  YAML.load_file("hangman_save.yml")
-end
-
-def choose_word
-  file = File.open("guess_words.txt", "r")
-  contents = file.read
-  words = contents.split
-  secret_word = words.sample
-  while secret_word.length < 5 || secret_word.length > 12
-    secret_word = words.sample
+  def initialize(secret_word, guessed_letters, remaining_chances)
+    @secret_word = secret_word
+    @guessed_letters = guessed_letters
+    @remaining_chances = remaining_chances
   end
-  file.close
-  secret_word
+
+  def self.load
+    data = YAML.load_file("hangman_save.yml")
+    new(data[:secret_word], data[:guessed_letters], data[:remaining_chances])
+  end
+
+  def save
+    File.open("hangman_save.yml", "w") do |file|
+      file.puts({
+        secret_word: secret_word,
+        guessed_letters: guessed_letters,
+        remaining_chances: remaining_chances
+      }.to_yaml)
+    end
+  end
+
+  def display_word
+    secret_word.chars.map do |char|
+      if guessed_letters.include?(char)
+        char
+      else
+        "_"
+      end
+    end.join(" ")
+  end
+
+  def self.choose_word
+    words = []
+
+    File.open("guess_words.txt", "r") do |file|
+      file.each_line do |line|
+        word = line.strip
+        words << word if word.length >= 5 && word.length <= 12
+      end
+    end
+
+    words.sample
+  end
 end
 
 puts "Welcome to Hangman! Do you want to start a new game or load a saved game? (Type 'new' or 'load')"
 input = gets.chomp
 
 if input == 'load'
-  saved_game = load_game
-  secret_word = saved_game[:secret_word]
-  guessed_letters = saved_game[:guessed_letters]
-  remaining_chances = saved_game[:remaining_chances]
+  game = Hangman.load
 else
-  secret_word = choose_word
-  guessed_letters = []
-  remaining_chances = 6
-end
-
-def display_word(secret_word, guessed_letters)
-  secret_word.chars.map do |char|
-    if guessed_letters.include?(char)
-      char
-    else
-      "_"
-    end
-  end.join(" ")
+  secret_word = Hangman.choose_word
+  game = Hangman.new(secret_word, [], 6)
 end
 
 while remaining_chances > 0
