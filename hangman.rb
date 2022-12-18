@@ -2,6 +2,7 @@ require 'yaml'
 
 class Hangman
   attr_reader :secret_word, :guessed_letters, :remaining_chances
+  attr_writer :remaining_chances
 
   def initialize(secret_word, guessed_letters, remaining_chances)
     @secret_word = secret_word
