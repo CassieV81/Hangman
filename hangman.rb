@@ -58,35 +58,35 @@ else
   game = Hangman.new(secret_word, [], 6)
 end
 
-while remaining_chances > 0
-  puts "Secret word: #{display_word(secret_word, guessed_letters)}"
+while game.remaining_chances > 0
+  puts "Secret word: #{game.display_word}"
 
   print "Enter your guess: "
   guess = gets.chomp
 
   if guess == 'save'
-    save_game(secret_word, guessed_letters, remaining_chances)
+    game.save
     puts "Game saved!"
     break
   end
 
-  puts "Letters guessed: #{guessed_letters.join(', ')}"
+  puts "Letters guessed: #{game.guessed_letters.join(', ')}"
   
-  if secret_word.include?(guess)
-    guessed_letters.push(guess)
+  if game.secret_word.include?(guess)
+    game.guessed_letters.push(guess)
     puts "Correct! #{guess} is in the secret word."
   else
-    remaining_chances -= 1
-    puts "Incorrect! Try again... You have #{remaining_chances} remaining chances"
+    game.remaining_chances -= 1
+    puts "Incorrect! Try again... You have #{game.remaining_chances} remaining chances"
   end
 
   #End loop
 
-  if secret_word.chars.all? { |char| guessed_letters.include?(char) }
-    puts "You win! You guessed the secret word, #{secret_word}."
+  if game.secret_word.chars.all? { |char| game.guessed_letters.include?(char) }
+    puts "You win! You guessed the secret word, #{game.secret_word}."
     return
-  elsif remaining_chances == 0
-    puts "You lose! The secret word was #{secret_word}."
+  elsif game.remaining_chances == 0
+    puts "You lose! The secret word was #{game.secret_word}."
     return
   end
 end
